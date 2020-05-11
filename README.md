@@ -9,8 +9,6 @@
   - [분석/설계](#분석설계)
   - [구현:](#구현-)
     - [DDD 의 적용](#ddd-의-적용)
-    - [폴리글랏 퍼시스턴스](#폴리글랏-퍼시스턴스)
-    - [폴리글랏 프로그래밍](#폴리글랏-프로그래밍)
     - [동기식 호출 과 Fallback 처리](#동기식-호출-과-Fallback-처리)
     - [비동기식 호출 과 Eventual Consistency](#비동기식-호출-과-Eventual-Consistency)
   - [운영](#운영)
@@ -18,7 +16,6 @@
     - [동기식 호출 / 서킷 브레이킹 / 장애격리](#동기식-호출-서킷-브레이킹-장애격리)
     - [오토스케일 아웃](#오토스케일-아웃)
     - [무정지 재배포](#무정지-재배포)
-  - [신규 개발 조직의 추가](#신규-개발-조직의-추가)
 
 # 서비스 시나리오
 
@@ -85,21 +82,29 @@
 좌석예약시스템은 5개의 마이크로서비스로 구현되어 있다.
 
 게이트웨이: https://github.com/logsigma/gateway.git
+
 예약시스템: https://github.com/logsigma/meetingRoom.git
+
 좌석시스템: https://github.com/logsigma/reservation.git
+
 등급시스템: https://github.com/logsigma/demerit.git
+
 모든좌석지도: https://github.com/logsigma/lookup.git
 
 cd bookingsystem
+
 mvn spring-boot:run
 
 cd seatsystem
+
 mvn spring-boot:run
 
 cd gradesystem
+
 mvn spring-boot:run
 
 cd allseatmap
+
 mvn spring-boot:run
 
 
