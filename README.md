@@ -94,13 +94,13 @@ cd bookingsystem
 mvn spring-boot:run
 
 cd seatsystem
-mvn spring-boot:run 
+mvn spring-boot:run
 
 cd gradesystem
-mvn spring-boot:run  
+mvn spring-boot:run
 
 cd allseatmap
-mvn spring-boot:run  
+mvn spring-boot:run
 
 
 ## DDD 의 적용
