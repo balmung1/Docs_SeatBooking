@@ -92,19 +92,15 @@
 모든좌석지도: https://github.com/logsigma/lookup.git
 
 cd bookingsystem
-
 mvn spring-boot:run
 
 cd seatsystem
-
 mvn spring-boot:run
 
 cd gradesystem
-
 mvn spring-boot:run
 
 cd allseatmap
-
 mvn spring-boot:run
 
 
