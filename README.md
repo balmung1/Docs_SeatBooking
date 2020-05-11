@@ -40,7 +40,7 @@
 # 분석/설계
 
 ## Event Storming 결과
-http://msaez.io/#/storming/nZJ2QhwVc4NlVJPbtTkZ8x9jclF2/every/a77281d704710b0c2e6a823b6e6d973a/-M5AV2z--su_i4BfQfeF
+![image](https://user-images.githubusercontent.com/63028480/81593042-d2bd9100-93f9-11ea-9b65-4218ef361dc4.png)
 
     - 도메인 서열 분리 
         - Core Domain:  예약(BookingSystem), 좌석(SeatSystem) 도메인 
@@ -50,27 +50,28 @@ http://msaez.io/#/storming/nZJ2QhwVc4NlVJPbtTkZ8x9jclF2/every/a77281d704710b0c2e
 
 ### 기능적/비기능적 요구사항을 커버하는지 검증
 
-![image](https://user-images.githubusercontent.com/487999/79684167-3ecd2f00-826a-11ea-806a-957362d197e3.png)
+![image](https://user-images.githubusercontent.com/63028480/81594011-3c8a6a80-93fb-11ea-9c0d-dbf9e6000f64.png)
 
     - 고객이 빈좌석을 선택하여 예약 하거나 예약된 좌석을 취소 한다 (ok)
     - 예약 및 취소가 완료되면 좌석 상태가 변경 된다 (ok)
 
-![image](https://user-images.githubusercontent.com/487999/79684170-47256a00-826a-11ea-9777-e16fafff519a.png)
+![image](https://user-images.githubusercontent.com/63028480/81594050-4ad88680-93fb-11ea-82b6-41d72086867b.png)
+
     - 관리자가 예약기간 만료된 좌석의 좌석상태를 Empty로 변경한다 (ok)
     - 좌석상태가 Empty로 변경되면 좌석 예약이 종료처리 된다 (ok)
 
 ### 비기능 요구사항에 대한 검증
 
-![image](https://user-images.githubusercontent.com/487999/79684184-5c9a9400-826a-11ea-8d87-2ed1e44f4562.png)
+![image](https://user-images.githubusercontent.com/63028480/81594364-bcb0d000-93fb-11ea-8f06-42f56f8d5a5b.png)
 
     - 마이크로 서비스를 넘나드는 시나리오에 대한 트랜잭션 처리
-        - 고객 예약시 등급확인:  고객등급에 따라, ACID 트랜잭션 적용. 좌석 예약완료시 고객 등급확인에 대해서는 Request-Response 방식 처리
-        - 나머지 모든 inter-microservice 트랜잭션: 예약상태, 좌석상태 등 모든 이벤트에 대해 데이터 일관성의 시점이 크리티컬하지 않기 때문에, Eventual Consistency 를 기본으로 채택함.
+    - 고객 예약시 등급확인:  고객등급에 따라, ACID 트랜잭션 적용. 좌석 예약완료시 고객 등급확인에 대해서는 Request-Response 방식 처리
+    - 나머지 모든 inter-microservice 트랜잭션: 예약상태, 좌석상태 등 모든 이벤트에 대해 데이터 일관성의 시점이 크리티컬하지 않기 때문에, Eventual Consistency 를 기본으로 채택함.
 
 
 ## 헥사고날 아키텍처 다이어그램 도출
     
-![image](https://user-images.githubusercontent.com/487999/79684772-eba9ab00-826e-11ea-9405-17e2bf39ec76.png)
+![image](https://user-images.githubusercontent.com/63028480/81593232-1c0de080-93fa-11ea-915d-98f8c1f7f53e.png)
 
     - Chris Richardson, MSA Patterns 참고하여 Inbound adaptor와 Outbound adaptor를 구분함
     - 호출관계에서 PubSub 과 Req/Resp 를 구분함
