@@ -81,26 +81,22 @@
 
 좌석예약시스템은 5개의 마이크로서비스로 구현되어 있다.
 
-게이트웨이: https://github.com/logsigma/gateway.git
+1. 게이트웨이: https://github.com/logsigma/gateway.git
+1. 예약시스템: https://github.com/logsigma/meetingRoom.git
+1. 좌석시스템: https://github.com/logsigma/reservation.git
+1. 등급시스템: https://github.com/logsigma/demerit.git
+1. 모든좌석지도: https://github.com/logsigma/lookup.git
 
-예약시스템: https://github.com/logsigma/meetingRoom.git
-
-좌석시스템: https://github.com/logsigma/reservation.git
-
-등급시스템: https://github.com/logsigma/demerit.git
-
-모든좌석지도: https://github.com/logsigma/lookup.git
-
-cd bookingsystem 
+cd bookingsystem   
 mvn spring-boot:run
 
-cd seatsystem 
+cd seatsystem   
 mvn spring-boot:run
 
-cd gradesystem 
+cd gradesystem   
 mvn spring-boot:run
 
-cd allseatmap 
+cd allseatmap   
 mvn spring-boot:run
 
 
