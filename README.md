@@ -406,6 +406,7 @@ Lookup(CQRS) 시스템은 예약/취소와 완전히 분리되어있으며, 이�
 
 # API게이트웨이
 ![gatway설정](https://user-images.githubusercontent.com/63028480/92490855-7bef8900-f22c-11ea-861f-54a8ed34fff9.JPG)
+![핵사고날](https://user-images.githubusercontent.com/63028480/92455209-5a76a900-f1fc-11ea-8974-c4f45e83071c.JPG)
 
 # 운영
 ## DevOps 등록
