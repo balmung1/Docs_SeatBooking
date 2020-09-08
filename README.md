@@ -135,30 +135,7 @@ public class Reservation {
     private String roomStatus;
     private String mType;
 
-
-    @PostPersist
-    public void onPostUpdate() {
-        if(mType.equals("reservation")){
-            Reserved reserved = new Reserved();
-            BeanUtils.copyProperties(this,reserved);
-            reserved.publish();
-
-        }else{
-            ReservationCanceled reservationCanceled = new ReservationCanceled();
-            BeanUtils.copyProperties(this,reservationCanceled);
-            reservationCanceled.publish();
-
-            Demerit demerit = new Demerit();
-
-            demerit.setDemeritId(reservationCanceled.getId());
-            demerit.setUserId(reservationCanceled.getUserId());
-
-            DemeritService demeritService = Application.applicationContext.getBean(DemeritService.class);
-            demeritService.demerit(demerit);
-        }
-
-    }
-
+...
 
     public String getmType() {
         return mType;
@@ -223,13 +200,6 @@ public interface ReservationRepository extends PagingAndSortingRepository<Reserv
 ```
 - 적용 후 REST API 의 테스트
 ```
-@FeignClient(name="Demerit", url="http://Demerit:8080")
-public interface DemeritService {
-
-    @RequestMapping(method= RequestMethod.POST, path="/demerits/save")
-    public void demerit(@RequestBody Demerit demerit);
-
-}
 
 # 회의실 등록(관리자)
 http http://meetingroom:8080/meetingRooms roomId=1 roomName=A101 location=F1
@@ -253,17 +223,7 @@ http http://reservation:8080/reservations
 ```
 # (app) external.java
 package RoomSystem.external;
-
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.Date;
-
-/**
- * Created by uengine on 2018. 11. 21..
- */
+...
 @FeignClient(name="Demerit", url="http://Demerit:8080")
 public interface DemeritService {
 
