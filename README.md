@@ -405,18 +405,16 @@ Lookup(CQRS) 시스템은 예약/취소와 완전히 분리되어있으며, 이�
 ```
 
 # API게이트웨이
-캡쳐
+![gatway설정](https://user-images.githubusercontent.com/63028480/92490855-7bef8900-f22c-11ea-861f-54a8ed34fff9.JPG)
 
 # 운영
 ## DevOps 등록
-캡쳐
+![pipelines](https://user-images.githubusercontent.com/63028480/92490875-81e56a00-f22c-11ea-804c-becafe2d7d04.JPG)
 
 ## kubectl pod 확인
-캡쳐
+![cubectl](https://user-images.githubusercontent.com/63028480/92490895-890c7800-f22c-11ea-852e-a781a5ac0974.JPG)
 
 ## CI/CD 설정
-캡쳐
-
 각 구현체들은 각자의 source repository 에 구성되었고, 사용한 CI/CD 플랫폼은 GCP를 사용하였으며, pipeline build script 는 각 프로젝트 폴더 이하에 cloudbuild.yml 에 포함되었다.
 
 
