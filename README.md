@@ -205,26 +205,27 @@ public interface ReservationRepository extends PagingAndSortingRepository<Reserv
 http http://meetingroom:8080/meetingRooms roomId=1 roomName=A101 location=F1
 http http://meetingroom:8080/meetingRooms roomId=2 roomName=A201 location=F1
 ```
-
+![room_add](https://user-images.githubusercontent.com/63028480/92504275-6767bc80-f23d-11ea-8d28-77f44761f6dc.JPG)
 ```
 # 회의실 조회(관리자)
 http http://meetingroom:8080/meetingRooms
 ```
-
+![room_all](https://user-images.githubusercontent.com/63028480/92504291-6fbff780-f23d-11ea-85f3-c9524426a51d.JPG)
 ```
 # 회의실 예약(사용자)
 http patch http://reservation:8080/reservations/reservation reservationId=1 roomId=2 userId=ABC
 ```
-
+![room_booking](https://user-images.githubusercontent.com/63028480/92504321-7a7a8c80-f23d-11ea-8279-7aaca192c8ed.JPG)
 ```
 # 회의실 예약 취소(사용자)
 http patch http://reservation:8080/reservations/cancel reservationId=1 roomId=2 userId=ABC
 ```
-
+![room_cancel](https://user-images.githubusercontent.com/63028480/92504356-85cdb800-f23d-11ea-907a-0df22829bc20.JPG)
 ```
 # 예약 현황 확인(사용자)
 http http://reservation:8080/reservations
 ```
+![room_allBookings](https://user-images.githubusercontent.com/63028480/92504341-80706d80-f23d-11ea-910d-45433fbecbb9.JPG)
 
 ## 동기식 호출 과 Fallback 처리
 
@@ -373,7 +374,8 @@ public class PolicyHandler{
 ```
 
 Lookup(CQRS) 시스템은 예약/취소와 완전히 분리되어있으며, 이벤트 수신에 따라 처리되기 때문에, Lookup 시스템이 유지보수로 인해 잠시 내려간 상태라도 예약/취소를 하는데 문제가 없다
-
+![cqrs1](https://user-images.githubusercontent.com/63028480/92504385-8f572000-f23d-11ea-8886-654c9871a293.JPG)
+![cqrs2](https://user-images.githubusercontent.com/63028480/92504401-941bd400-f23d-11ea-9cfa-a208ea446d1a.JPG)
 
 
 ## API게이트웨이
