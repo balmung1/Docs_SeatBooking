@@ -244,7 +244,6 @@ http patch http://reservation:8080/reservations/cancel reservationId=1 roomId=1 
 http http://reservation:8080/reservations
 ```
 
-
 ## 동기식 호출 과 Fallback 처리
 
 분석단계에서의 조건 중 하나로 예약취소->벌점부여 간의 호출은 동기식 일관성을 유지하는 트랜잭션으로 처리하기로 하였다. 호출 프로토콜은 이미 앞서 Rest Repository 에 의해 노출되어있는 REST 서비스를 FeignClient 를 이용하여 호출하도록 한다. 
@@ -415,7 +414,7 @@ Lookup(CQRS) 시스템은 예약/취소와 완전히 분리되어있으며, 이�
 
 ## CI/CD 설정
 각 구현체들은 각자의 source repository 에 구성되었고, 사용한 CI/CD 플랫폼은 GCP를 사용하였으며, pipeline build script 는 각 프로젝트 폴더 이하에 azure-pipeline.yml 에 포함되었다.
-
+![azure-pipelines yml](https://user-images.githubusercontent.com/63028480/92492937-ea354b00-f22e-11ea-9671-e40efa0437dc.JPG)
 
 ## 동기식 호출 / 서킷 브레이킹 / 장애격리
 
