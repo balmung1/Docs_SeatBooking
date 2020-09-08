@@ -402,11 +402,9 @@ public class PolicyHandler{
 ```
 
 Lookup(CQRS) 시스템은 예약/취소와 완전히 분리되어있으며, 이벤트 수신에 따라 처리되기 때문에, Lookup 시스템이 유지보수로 인해 잠시 내려간 상태라도 예약/취소를 하는데 문제가 없다
-```
 
-# API게이트웨이
+## API게이트웨이
 ![gatway설정](https://user-images.githubusercontent.com/63028480/92490855-7bef8900-f22c-11ea-861f-54a8ed34fff9.JPG)
-![핵사고날](https://user-images.githubusercontent.com/63028480/92455209-5a76a900-f1fc-11ea-8974-c4f45e83071c.JPG)
 
 # 운영
 ## DevOps 등록
@@ -416,12 +414,16 @@ Lookup(CQRS) 시스템은 예약/취소와 완전히 분리되어있으며, 이�
 ![cubectl](https://user-images.githubusercontent.com/63028480/92490895-890c7800-f22c-11ea-852e-a781a5ac0974.JPG)
 
 ## CI/CD 설정
-각 구현체들은 각자의 source repository 에 구성되었고, 사용한 CI/CD 플랫폼은 GCP를 사용하였으며, pipeline build script 는 각 프로젝트 폴더 이하에 cloudbuild.yml 에 포함되었다.
+각 구현체들은 각자의 source repository 에 구성되었고, 사용한 CI/CD 플랫폼은 GCP를 사용하였으며, pipeline build script 는 각 프로젝트 폴더 이하에 azure-pipeline.yml 에 포함되었다.
 
 
 ## 동기식 호출 / 서킷 브레이킹 / 장애격리
 
 ## 오토스케일 아웃
+앞서 CB 는 시스템을 안정되게 운영할 수 있게 해줬지만 사용자의 요청을 100% 받아들여주지 못했기 때문에 이에 대한 보완책으로 자동화된 확장 기능을 적용하고자 한다.
+
+- 예약시스템에 대한 replica 를 동적으로 늘려주도록 HPA 를 설정한다. 설정은 CPU 사용량이 15프로를 넘어서면 replica 를 10개까지 늘려준다:
+kubectl autoscale deploy roomSystem --min=1 --max=10 --cpu-percent=15
 
 ## 무정지 재배포
 
@@ -442,6 +444,7 @@ livenessProbe:
   initialDelaySeconds: 120
   timeoutSeconds: 2
   periodSeconds: 5
+  
   failureThreshold: 5
 
 
