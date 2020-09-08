@@ -422,12 +422,14 @@ Lookup(CQRS) 시스템은 예약/취소와 완전히 분리되어있으며, 이�
 앞서 CB 는 시스템을 안정되게 운영할 수 있게 해줬지만 사용자의 요청을 100% 받아들여주지 못했기 때문에 이에 대한 보완책으로 자동화된 확장 기능을 적용하고자 한다.
 
 - 예약시스템에 대한 replica 를 동적으로 늘려주도록 HPA 를 설정한다. 설정은 CPU 사용량이 15프로를 넘어서면 replica 를 10개까지 늘려준다:
+```
 kubectl autoscale deploy roomSystem --min=1 --max=10 --cpu-percent=15
+```
 
 ## 무정지 재배포
 
 - 모든 프로젝트의 readiness probe 및 liveness probe 설정 완료.
-
+```
 readinessProbe:
   httpGet:
     path: /actuator/health
@@ -445,5 +447,5 @@ livenessProbe:
   periodSeconds: 5
   
   failureThreshold: 5
-
+```
 
