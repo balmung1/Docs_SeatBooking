@@ -40,7 +40,7 @@
 # 분석/설계
 
 ## Event Storming 결과
-![image](https://user-images.githubusercontent.com/63028480/81593042-d2bd9100-93f9-11ea-9b65-4218ef361dc4.png)
+![eventstorming](https://user-images.githubusercontent.com/63028480/92455138-48950600-f1fc-11ea-8df4-4a87e0ec5985.JPG)
 
     - 도메인 서열 분리 
         - Core Domain:  회의실(MeetingRoom), 예약(Reservation) 도메인 
@@ -50,19 +50,19 @@
 
 ### 기능적/비기능적 요구사항을 커버하는지 검증
 
-![image](https://user-images.githubusercontent.com/63028480/81594011-3c8a6a80-93fb-11ea-9c0d-dbf9e6000f64.png)
+![eventstorming2](https://user-images.githubusercontent.com/63028480/92455155-4d59ba00-f1fc-11ea-9254-84a792614b92.JPG)
 
     - 관리자가 회의실을 등록/삭제 한다. (ok)
     - 관리자가 회의실을 등록/삭제 하면 알림을 보낸다. (ok)
 
-![image](https://user-images.githubusercontent.com/63028480/81594050-4ad88680-93fb-11ea-82b6-41d72086867b.png)
+![eventstorming3](https://user-images.githubusercontent.com/63028480/92455175-521e6e00-f1fc-11ea-9cf0-0b1f14288033.JPG)
 
     - 사용자가 회의실을 예약하거나 예약을 취소 한다 (ok)
     - 예약 및 취소가 완료되면 알림을 보낸다. (ok)
     
 ### 비기능 요구사항에 대한 검증
 
-![image](https://user-images.githubusercontent.com/63028480/81594364-bcb0d000-93fb-11ea-8f06-42f56f8d5a5b.png)
+![eventstorming4](https://user-images.githubusercontent.com/63028480/92455194-577bb880-f1fc-11ea-9286-fe5616f3e71c.JPG)
 
     - 마이크로 서비스를 넘나드는 시나리오에 대한 트랜잭션 처리
     - 예약 취소시 벌점부여: ACID 트랜잭션 적용. 예약 취소 시 벌점부여에 대해서는 Request-Response 방식 처리
@@ -71,7 +71,7 @@
 
 ## 헥사고날 아키텍처 다이어그램 도출
     
-![image](https://user-images.githubusercontent.com/63028480/81593232-1c0de080-93fa-11ea-915d-98f8c1f7f53e.png)
+![핵사고날](https://user-images.githubusercontent.com/63028480/92455209-5a76a900-f1fc-11ea-8974-c4f45e83071c.JPG)
 
     - Chris Richardson, MSA Patterns 참고하여 Inbound adaptor와 Outbound adaptor를 구분함
     - 호출관계에서 PubSub 과 Req/Resp 를 구분함
@@ -235,13 +235,13 @@ public interface DemeritService {
 http http://meetingroom:8080/meetingRooms roomId=1 roomName=A101 location=F1
 
 # 회의실 예약(사용자)
-http localhost:8083/주문처리s orderId=1
+http patch http://reservation:8080/reservations/reservation reservationId=1 roomId=1 userId=ABC
 
 # 회의실 예약 취소(사용자)
-http localhost:8081/orders/1
+http patch http://reservation:8080/reservations/cancel reservationId=1 roomId=1 userId=ABC
 
 # 예약 현황 확인(사용자)
-http localhost:8081/orders/1
+http http://reservation:8080/reservations
 ```
 
 
@@ -249,7 +249,7 @@ http localhost:8081/orders/1
 
 분석단계에서의 조건 중 하나로 예약취소->벌점부여 간의 호출은 동기식 일관성을 유지하는 트랜잭션으로 처리하기로 하였다. 호출 프로토콜은 이미 앞서 Rest Repository 에 의해 노출되어있는 REST 서비스를 FeignClient 를 이용하여 호출하도록 한다. 
 
-- 점서비스를 호출하기 위하여 FeignClient를 이용하여 Service 대행 인터페이스 (Proxy) 를 구현 
+- 벌점서비스를 호출하기 위하여 FeignClient를 이용하여 Service 대행 인터페이스 (Proxy) 를 구현 
 
 ```
 # (app) external.java
@@ -409,12 +409,13 @@ Lookup(CQRS) 시스템은 예약/취소와 완전히 분리되어있으며, 이�
 
 # 운영
 ## DevOps 등록
+캡쳐
 
 ## kubectl pod 확인
-
+캡쳐
 
 ## CI/CD 설정
-
+캡쳐
 
 각 구현체들은 각자의 source repository 에 구성되었고, 사용한 CI/CD 플랫폼은 GCP를 사용하였으며, pipeline build script 는 각 프로젝트 폴더 이하에 cloudbuild.yml 에 포함되었다.
 
@@ -427,5 +428,21 @@ Lookup(CQRS) 시스템은 예약/취소와 완전히 분리되어있으며, 이�
 
 - 모든 프로젝트의 readiness probe 및 liveness probe 설정 완료.
 
+readinessProbe:
+  httpGet:
+    path: /actuator/health
+    port: 8080
+  initialDelaySeconds: 10
+  timeoutSeconds: 2
+  periodSeconds: 5
+  failureThreshold: 10
+livenessProbe:
+  httpGet:
+     path: /actuator/health
+     port: 8080
+  initialDelaySeconds: 120
+  timeoutSeconds: 2
+  periodSeconds: 5
+  failureThreshold: 5
 
 
