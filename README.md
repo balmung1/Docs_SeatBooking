@@ -199,17 +199,29 @@ public interface ReservationRepository extends PagingAndSortingRepository<Reserv
 }
 ```
 - 적용 후 REST API 의 테스트
-```
 
+```
 # 회의실 등록(관리자)
 http http://meetingroom:8080/meetingRooms roomId=1 roomName=A101 location=F1
+http http://meetingroom:8080/meetingRooms roomId=2 roomName=A201 location=F1
+```
 
+```
+# 회의실 조회(관리자)
+http http://meetingroom:8080/meetingRooms
+```
+
+```
 # 회의실 예약(사용자)
-http patch http://reservation:8080/reservations/reservation reservationId=1 roomId=1 userId=ABC
+http patch http://reservation:8080/reservations/reservation reservationId=1 roomId=2 userId=ABC
+```
 
+```
 # 회의실 예약 취소(사용자)
-http patch http://reservation:8080/reservations/cancel reservationId=1 roomId=1 userId=ABC
+http patch http://reservation:8080/reservations/cancel reservationId=1 roomId=2 userId=ABC
+```
 
+```
 # 예약 현황 확인(사용자)
 http http://reservation:8080/reservations
 ```
@@ -361,6 +373,8 @@ public class PolicyHandler{
 ```
 
 Lookup(CQRS) 시스템은 예약/취소와 완전히 분리되어있으며, 이벤트 수신에 따라 처리되기 때문에, Lookup 시스템이 유지보수로 인해 잠시 내려간 상태라도 예약/취소를 하는데 문제가 없다
+
+
 
 ## API게이트웨이
 ![gatway설정](https://user-images.githubusercontent.com/63028480/92490855-7bef8900-f22c-11ea-861f-54a8ed34fff9.JPG)
